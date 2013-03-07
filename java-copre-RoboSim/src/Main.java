@@ -1,7 +1,8 @@
-import Model.ContactSensor;
-import Model.LightSensor;
 import Model.Robot;
-import Model.TemperatureSensor;
+
+import javax.swing.JFrame;
+
+import UI.UICreateRobot;
 
 
 public class Main {
@@ -11,8 +12,9 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		Robot rob = new Robot(200,"Test",0,0);
+		rob.loadRobot("robot.xml");
 		System.out.println(rob.getName());
-		
+		/*
 		rob = new LightSensor(rob);
 		System.out.println(rob.getDescription());
 		
@@ -20,7 +22,15 @@ public class Main {
 		System.out.println(rob.getDescription());
 		
 		rob = new TemperatureSensor(rob);
-		System.out.println(rob.getDescription());
+		System.out.println(rob.getDescription());*/
+		JFrame frame = new JFrame();
+		frame.setSize((int)frame.getToolkit().getScreenSize().getWidth(), ((int)frame.getToolkit().getScreenSize().getHeight() - 40));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		UICreateRobot createRobot = new UICreateRobot();
+		createRobot.setSize(frame.getSize());
+		frame.setContentPane(createRobot);
+		frame.setVisible(true);
 	}
 
 }

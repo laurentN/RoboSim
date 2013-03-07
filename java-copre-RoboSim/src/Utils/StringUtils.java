@@ -3,6 +3,15 @@ package Utils;
 public class StringUtils {
 
 	/**
+	 * @param s : string à valider
+	 * @return vrai si le String en paramètre ne contient pas de caractères spéciaux, faux sinon
+	 */
+	public static boolean stringValide(String s)
+	{
+		return !(s.contains("/") || s.contains("\\") || s.contains(":") || s.contains("*") || s.contains("?") || s.contains("\"") || s.contains("<") || s.contains(">") || s.contains("|")); 
+	}
+	
+	/**
 	 * Fonction qui nous indique si une chaine de caractère contient que des chiffres
 	 * @param s chaine de caractère à tester
 	 * @return retourne vrai si une chaine est exclusivement composée de chiffre, faux sinon

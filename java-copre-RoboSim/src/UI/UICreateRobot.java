@@ -79,7 +79,7 @@ public class UICreateRobot extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource().equals(this.createButton)){
-			if(!this.nameRobot.getText().equals("")){
+			if(!this.nameRobot.getText().equals("") && StringUtils.stringValide(this.nameRobot.getText())){
 				if(!this.speedRobot.getText().equals("")){
 					if(StringUtils.isANumber(this.speedRobot.getText())){
 						ArrayList<Element> sensorList = new ArrayList<Element>();

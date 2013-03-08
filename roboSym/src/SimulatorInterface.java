@@ -3,8 +3,10 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -45,7 +47,16 @@ public class SimulatorInterface implements ActionListener {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setResizable(false);
+		WindowListener exitListener = new WindowAdapter() {
+
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showOptionDialog(null, "Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                if (confirm == JOptionPane.YES_OPTION)
+                	System.exit(0);
+            }
+        };
+		frame.addWindowListener(exitListener);
+		frame.setResizable(true);
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);

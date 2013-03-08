@@ -4,6 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +35,15 @@ public class MenuInterface implements ActionListener {
 				try {
 					MenuInterface window = new MenuInterface();
 					window.frmRobosim.setVisible(true);
+					WindowListener exitListener = new WindowAdapter() {
+
+			            public void windowClosing(WindowEvent e) {
+			                int confirm = JOptionPane.showOptionDialog(null, "Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			                if (confirm == JOptionPane.YES_OPTION)
+			                	System.exit(0);
+			            }
+			        };
+					window.frmRobosim.addWindowListener(exitListener);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -79,6 +79,14 @@ public class UICreateRobot extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		/***
+		 * 
+		 * 
+		 * 
+		 * Pour regler le pb il suffit d'enlever le bouton create et de lancer l'action a partir du create du jpanel 
+		 * on appel ensuite la fonction qui sauvegarde avec tous les test
+		 * 
+		 */
 		if(arg0.getSource().equals(this.createButton)){
 			if(!this.nameRobot.getText().equals("") && StringUtils.stringValide(this.nameRobot.getText())){
 				if(!this.speedRobot.getText().equals("")){

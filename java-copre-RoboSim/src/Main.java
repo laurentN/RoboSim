@@ -1,8 +1,10 @@
-import Model.Robot;
 
 import javax.swing.JFrame;
 
-import UI.UICreateRobot;
+import ui.UICreateRobot;
+
+import model.Robot;
+
 
 
 public class Main {

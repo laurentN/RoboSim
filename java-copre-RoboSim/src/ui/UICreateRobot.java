@@ -1,4 +1,4 @@
-package UI;
+package ui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,14 +14,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.ConstantesXML;
+import model.ContactSensor;
+import model.LightSensor;
+import model.Robot;
+import model.TemperatureSensor;
+
 import org.jdom2.Element;
 
-import Model.ConstantesXML;
-import Model.ContactSensor;
-import Model.LightSensor;
-import Model.Robot;
-import Model.TemperatureSensor;
-import Utils.StringUtils;
+import utils.StringUtils;
+
 
 public class UICreateRobot extends JPanel implements ActionListener{
  

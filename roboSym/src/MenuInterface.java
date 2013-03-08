@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
+
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -24,6 +26,8 @@ import java.io.IOException;
 
 import javax.swing.text.html.ImageView;
 import javax.swing.text.Element;
+
+import ui.UICreateRobot;
 
 
 public class MenuInterface implements ActionListener {
@@ -71,10 +75,17 @@ public class MenuInterface implements ActionListener {
 		frmRobosim.getContentPane().add(lblBienvenuSurRobosim);
 		
 		JButton btnCrerRobot = new JButton("Cr\u00E9er Robot");
+		btnCrerRobot.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UICreateRobot uicr = new UICreateRobot();
+				JOptionPane.showOptionDialog(null, uicr, "Create a Robot",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"create"},"Create");
+			}
+		});
 		btnCrerRobot.setBounds(246, 215, 135, 40);
 		frmRobosim.getContentPane().add(btnCrerRobot);
 		
-		JButton btnCrerCarte = new JButton("Cr\u00E9er Carte");		
+		JButton btnCrerCarte = new JButton("Cr\u00E9er Carte");	
+		
 		btnCrerCarte.setBounds(401, 215, 135, 40);
 		frmRobosim.getContentPane().add(btnCrerCarte);
 		

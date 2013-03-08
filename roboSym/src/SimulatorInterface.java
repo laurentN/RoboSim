@@ -87,6 +87,7 @@ public class SimulatorInterface implements ActionListener {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UICreateRobot uicr = new UICreateRobot();
+				JOptionPane.showOptionDialog(null, uicr, "Create a Robot",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"create"},"Create");
 				/*JOptionPane.show
 				
 				this.add(uicr);*/

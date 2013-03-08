@@ -54,7 +54,6 @@ public class UICreateRobot extends JPanel implements ActionListener{
 		this.speedRobot.setSize(this.getWidth()/4, 30);
 		this.add(this.speedRobot,c);
 		
-		
 		c.gridx = 0;
 		c.gridy = 3;
 		c.gridwidth = 2;
@@ -116,9 +115,6 @@ public class UICreateRobot extends JPanel implements ActionListener{
 			else{
 				JOptionPane.showMessageDialog(this,"Enter a name for your Robot");
 			}
-			
 		}
-		
 	}
-
 }

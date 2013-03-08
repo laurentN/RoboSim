@@ -4,9 +4,13 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+
+import ui.UICreateRobot;
 
 
 public class SimulatorInterface implements ActionListener {
@@ -82,6 +86,10 @@ public class SimulatorInterface implements ActionListener {
 		JButton btnNewButton_2 = new JButton("Cr\u00E9er nouveau robot");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				UICreateRobot uicr = new UICreateRobot();
+				/*JOptionPane.show
+				
+				this.add(uicr);*/
 			}
 		});
 		btnNewButton_2.setBounds(675, 41, 109, 23);
@@ -99,7 +107,7 @@ public class SimulatorInterface implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		if(e.getSource().equals(obj))
 		
 	}
 	

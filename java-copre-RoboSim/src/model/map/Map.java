@@ -16,12 +16,12 @@ public class Map {
 	public Map()
 	{
 		grid=new boolean[width][height];
-		for (int i=0;i<grid.length;i++)
+		for (int i = 0 ; i < grid.length ; i++)
 		{
-			for (int j=0;j<grid[0].length;j++)
+			for (int j = 0 ; j < grid[0].length ; j++)
 			{
-				if((i+j)%2==1){grid[i][j]=true;}
-				else {grid[i][j]=false;}
+				if((i + j)%2 == 1){grid[i][j] = true;}
+				else {grid[i][j] = false;}
 			}
 		}
 	}
@@ -106,7 +106,6 @@ public class Map {
 			br.close();
 			if (i!=grid.length){throw new MapException("Malformed map : not enough lines"); }
 			if (!checkWall()){throw new MapException("Malformed map : border error");}
-			System.out.println(showMap());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

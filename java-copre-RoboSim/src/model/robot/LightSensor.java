@@ -1,4 +1,4 @@
-package model;
+package model.robot;
 
 public class LightSensor extends ASensor {
 

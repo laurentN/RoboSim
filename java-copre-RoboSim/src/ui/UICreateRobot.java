@@ -14,11 +14,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import model.ConstantesXML;
-import model.ContactSensor;
-import model.LightSensor;
-import model.Robot;
-import model.TemperatureSensor;
+import model.robot.ConstantesXML;
+import model.robot.ContactSensor;
+import model.robot.LightSensor;
+import model.robot.Robot;
+import model.robot.TemperatureSensor;
 
 import org.jdom2.Element;
 

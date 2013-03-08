@@ -1,4 +1,4 @@
-package model;
+package model.robot;
 
 public abstract class ARobot {
 	private int speed;

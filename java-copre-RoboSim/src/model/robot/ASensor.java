@@ -1,4 +1,4 @@
-package model;
+package model.robot;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;

@@ -3,7 +3,7 @@ import javax.swing.JFrame;
 
 import ui.UICreateRobot;
 
-import model.Robot;
+import model.robot.Robot;
 
 
 

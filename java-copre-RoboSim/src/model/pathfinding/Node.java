@@ -28,6 +28,10 @@ public class Node
 	{
 		return (this.position.getX() == node.getPosition().getX() && this.position.getY() == node.getPosition().getY());
 	}
+	
+	public String toString(){
+		return "Node : x="+this.getPosition().getX()+", y="+this.getPosition().getY()+", g="+this.getCostG()+", h="+this.getCostH()+", f="+this.getCostF();
+	}
 
 	public int getCostF() {
 		return costF;
@@ -43,6 +47,7 @@ public class Node
 
 	public void setCostG(int costG) {
 		this.costG = costG;
+		this.costF = this.costG + this.costH;
 	}
 
 	public int getCostH() {
@@ -51,6 +56,7 @@ public class Node
 
 	public void setCostH(int costH) {
 		this.costH = costH;
+		this.costF = this.costG + this.costH;
 	}
 
 	public Position getPosition() {

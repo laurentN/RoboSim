@@ -26,11 +26,15 @@ public class PathFinding
 		this.map = map;
 	}
 	
-	public ArrayList<Position> mainSearch()
+	public ArrayList<Node> mainSearch()
 	{
+		ArrayList<Node> testPath = new ArrayList<Node>();
 		boolean noSolution = false;
+		
 		do
 		{
+
+			testPath.add(this.currentNode);
 			for(int i = this.currentNode.getPosition().getX() - 1 ; i <=  this.currentNode.getPosition().getX() + 1; i++)
 			{
 				for(int j = this.currentNode.getPosition().getY() - 1 ; j <= this.currentNode.getPosition().getY() + 1; j++)
@@ -53,7 +57,7 @@ public class PathFinding
 						if(!foundInCloseList)
 						{
 							int costH = this.computeManhattanDistance(i, j, this.finalNode.getPosition().getX(), this.finalNode.getPosition().getY());
-							this.searchNode.setCostH(costH);
+							this.searchNode.setCostH(costH*10);
 							this.searchNode.setCostG(this.computeCostG(i, j));
 							this.searchNode.setCostF(this.searchNode.getCostG() + this.searchNode.getCostH());
 							
@@ -98,8 +102,11 @@ public class PathFinding
 					this.finalNode.setParent(this.currentNode.getParent());
 				}
 			}
-		}while(!this.currentNode.equals(this.finalNode) && !this.openList.isEmpty());
 			
+			
+		}while(!this.currentNode.equals(this.finalNode) && !this.openList.isEmpty());
+
+		
 		ArrayList<Position> path = null;
 		if(!noSolution)
 		{
@@ -114,7 +121,7 @@ public class PathFinding
 			}
 		}
 		
-		return path;
+		return testPath;
 	}	
 	
 	/**

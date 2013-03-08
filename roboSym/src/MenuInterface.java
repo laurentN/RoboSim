@@ -26,7 +26,7 @@ import javax.swing.text.html.ImageView;
 import javax.swing.text.Element;
 
 
-public class MenuInterface {
+public class MenuInterface implements ActionListener {
 
 	private JFrame frmRobosim;
 
@@ -74,19 +74,14 @@ public class MenuInterface {
 		btnCrerRobot.setBounds(246, 215, 135, 40);
 		frmRobosim.getContentPane().add(btnCrerRobot);
 		
-		JButton btnCrerCarte = new JButton("Cr\u00E9er Carte");
-		
-		btnCrerCarte.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		
+		JButton btnCrerCarte = new JButton("Cr\u00E9er Carte");		
 		btnCrerCarte.setBounds(401, 215, 135, 40);
 		frmRobosim.getContentPane().add(btnCrerCarte);
 		
 		JButton btnLancerUneSimulation = new JButton("Lancer une Simulation");
 		btnLancerUneSimulation.setBounds(246, 266, 290, 40);
 		frmRobosim.getContentPane().add(btnLancerUneSimulation);
+		btnLancerUneSimulation.addActionListener(this);
 		
 		try {
 			BufferedImage myPicture = ImageIO.read(new File("image1.png"));
@@ -115,7 +110,7 @@ public class MenuInterface {
 	}
 	
 	
-	BufferedImage createResizedCopy(Image originalImage, 
+	public BufferedImage createResizedCopy(Image originalImage, 
     		int scaledWidth, int scaledHeight)
     {
     	System.out.println("resizing...");
@@ -126,4 +121,24 @@ public class MenuInterface {
     	g.dispose();
     	return scaledBI;
     }
+	
+	public void closeWindow(){
+		this.frmRobosim.dispose();
+	}
+	
+	
+	public void actionPerformed(ActionEvent arg0) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SimulatorInterface window = new SimulatorInterface();
+					window.getFrame().setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	      this.closeWindow();
+	    }
+	
 }

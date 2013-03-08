@@ -1,7 +1,6 @@
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 
-public class SimulatorInterface {
+public class SimulatorInterface implements ActionListener {
 
 	private JFrame frame;
 
@@ -93,5 +92,17 @@ public class SimulatorInterface {
 		canvas.setBounds(204, 11, 465, 475);
 		frame.getContentPane().add(canvas);
 	}
+	
+	public JFrame getFrame(){
+		return this.frame;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		
+	}
+	
+	
 }
 

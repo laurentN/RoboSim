@@ -49,11 +49,13 @@ public class MenuInterface implements ActionListener {
 
 			            public void windowClosing(WindowEvent e) {
 			                int confirm = JOptionPane.showOptionDialog(null, "Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-			                if (confirm == JOptionPane.YES_OPTION)
+			                if (confirm == JOptionPane.YES_OPTION){
 			                	System.exit(0);
+			                }
 			            }
 			        };
 					window.frmRobosim.addWindowListener(exitListener);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -88,7 +90,7 @@ public class MenuInterface implements ActionListener {
 		frmRobosim.setResizable(false);
 		frmRobosim.setTitle("RoboSim");
 		frmRobosim.setBounds(100, 100, 799, 600);
-		frmRobosim.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmRobosim.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmRobosim.getContentPane().setLayout(null);
 		
 		JLabel lblBienvenuSurRobosim = new JLabel("Bienvenu Sur RoboSim");

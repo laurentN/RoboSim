@@ -82,13 +82,13 @@ public class MenuInterface implements ActionListener {
 		frmRobosim.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmRobosim.getContentPane().setLayout(null);
 		
-		JLabel lblBienvenuSurRobosim = new JLabel("Bienvenu Sur RoboSim");
+		JLabel lblBienvenuSurRobosim = new JLabel("Welcome on RoboSim");
 		lblBienvenuSurRobosim.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBienvenuSurRobosim.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
 		lblBienvenuSurRobosim.setBounds(286, 117, 210, 46);
 		frmRobosim.getContentPane().add(lblBienvenuSurRobosim);
 		
-		JButton btnCrerRobot = new JButton("Cr\u00E9er Robot");
+		JButton btnCrerRobot = new JButton("Create Robot");
 		btnCrerRobot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UICreateRobot uicr = new UICreateRobot();
@@ -144,12 +144,12 @@ public class MenuInterface implements ActionListener {
 		btnCrerRobot.setBounds(246, 215, 135, 40);
 		frmRobosim.getContentPane().add(btnCrerRobot);
 		
-		JButton btnCrerCarte = new JButton("Cr\u00E9er Carte");	
+		JButton btnCrerCarte = new JButton("Create Map");	
 		
 		btnCrerCarte.setBounds(401, 215, 135, 40);
 		frmRobosim.getContentPane().add(btnCrerCarte);
 		
-		JButton btnLancerUneSimulation = new JButton("Lancer une Simulation");
+		JButton btnLancerUneSimulation = new JButton("Launch simulation");
 		btnLancerUneSimulation.setBounds(246, 266, 290, 40);
 		frmRobosim.getContentPane().add(btnLancerUneSimulation);
 		btnLancerUneSimulation.addActionListener(this);

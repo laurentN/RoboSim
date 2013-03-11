@@ -22,7 +22,9 @@ import model.robot.TemperatureSensor;
 import org.jdom2.Element;
 
 import ui.UICreateRobot;
+import utils.FileUtils;
 import utils.StringUtils;
+import java.awt.Font;
 
 
 public class SimulatorInterface implements ActionListener {
@@ -72,7 +74,7 @@ public class SimulatorInterface implements ActionListener {
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 188, 550);
+		scrollPane.setBounds(10, 11, 188, 540);
 		frame.getContentPane().add(scrollPane);
 		
 		Canvas canvas_1 = new Canvas();
@@ -95,16 +97,26 @@ public class SimulatorInterface implements ActionListener {
 		JButton btnNewButton_1 = new JButton("stop");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+			ArrayList<String> theRobots = FileUtils.findFiles("SavedRobots/");
+			
+			
 			}
 		});
 		btnNewButton_1.setBounds(440, 492, 89, 23);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JButton btnChoisirUnRobot = new JButton("Choisir un robot");
+		btnChoisirUnRobot.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnChoisirUnRobot.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnChoisirUnRobot.setBounds(675, 11, 109, 23);
 		frame.getContentPane().add(btnChoisirUnRobot);
 		
-		JButton btnNewButton_2 = new JButton("Cr\u00E9er nouveau robot");
+		JButton btnNewButton_2 = new JButton("Nouveau robot");
+		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UICreateRobot uicr = new UICreateRobot();

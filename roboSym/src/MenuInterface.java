@@ -73,6 +73,17 @@ public class MenuInterface implements ActionListener {
 	 */
 	private void initialize() {
 		frmRobosim = new JFrame();
+		
+		WindowListener exitListener = new WindowAdapter() {
+
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showOptionDialog(null, "Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                if (confirm == JOptionPane.YES_OPTION)
+                	System.exit(0);
+            }
+        };
+        
+        
 		frmRobosim.setResizable(false);
 		frmRobosim.setTitle("RoboSim");
 		frmRobosim.setBounds(100, 100, 799, 600);

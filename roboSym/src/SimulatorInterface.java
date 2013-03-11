@@ -1,6 +1,7 @@
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -8,10 +9,14 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
 
 import model.robot.ConstantesXML;
 import model.robot.ContactSensor;
@@ -24,7 +29,6 @@ import org.jdom2.Element;
 import ui.UICreateRobot;
 import utils.FileUtils;
 import utils.StringUtils;
-import java.awt.Font;
 
 
 public class SimulatorInterface implements ActionListener {
@@ -110,12 +114,26 @@ public class SimulatorInterface implements ActionListener {
 		btnChoisirUnRobot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				ArrayList<String> theRobots = FileUtils.findFiles("SavedRobots/");
-				System.out.println("robot lut : " + theRobots);
 				
-				int i = JOptionPane.showOptionDialog(null, theRobots, "Create a Robot",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"create"},"Create");
-				System.out.println(i);
+				DefaultListModel listModel = new DefaultListModel();
+				JList liste = new JList();
+				liste.setCellRenderer(new ListeCellrendererRobot());
+				liste.setModel(listModel);
+				
+				ArrayList<String> theRobots = FileUtils.findFiles("SavedRobots/");
+				
+				//Ajout d'éléments
+				for(String s : theRobots ){
+					listModel.addElement(s);
+				}
+				
+				//liste.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+				
+				int i = JOptionPane.showOptionDialog(null, liste, "Select Robot for Simulation",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"OK"},"OK");
 				if(i==0){
+					for(int j=0;j<listModel.size();j++){
+						System.out.println(listModel.get(j));
+					}
 				}
 			}
 		});

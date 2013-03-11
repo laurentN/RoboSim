@@ -62,7 +62,7 @@ public class SimulatorInterface implements ActionListener {
 		WindowListener exitListener = new WindowAdapter() {
 
             public void windowClosing(WindowEvent e) {
-                int confirm = JOptionPane.showOptionDialog(null, "Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                int confirm = JOptionPane.showOptionDialog(null, "Do you really want to quit ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
                 if (confirm == JOptionPane.YES_OPTION)
                 	System.exit(0);
             }

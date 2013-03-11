@@ -6,13 +6,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
+import model.robot.ConstantesXML;
+import model.robot.ContactSensor;
+import model.robot.LightSensor;
+import model.robot.Robot;
+import model.robot.TemperatureSensor;
+
+import org.jdom2.Element;
+
 import ui.UICreateRobot;
+import utils.StringUtils;
 
 
 public class SimulatorInterface implements ActionListener {
@@ -98,10 +108,47 @@ public class SimulatorInterface implements ActionListener {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UICreateRobot uicr = new UICreateRobot();
-				JOptionPane.showOptionDialog(null, uicr, "Create a Robot",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"create"},"Create");
-				/*JOptionPane.show
-				
-				this.add(uicr);*/
+				int i = JOptionPane.showOptionDialog(null, uicr, "Create a Robot",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"create"},"Create");
+				System.out.println(i);
+				if(i==0){
+					if(!uicr.getNameRobot().getText().equals("") && StringUtils.stringValide(uicr.getNameRobot().getText())){
+						if(!uicr.getSpeedRobot().getText().equals("")){
+							if(StringUtils.isANumber(uicr.getSpeedRobot().getText())){
+								ArrayList<Element> sensorList = new ArrayList<Element>();
+								Robot robot = new Robot(Integer.parseInt(uicr.getSpeedRobot().getText()),uicr.getNameRobot().getText());
+								if(uicr.getLightSensor().isSelected()){
+									robot = new LightSensor(robot);
+									Element elementLight = new Element(ConstantesXML.sensorName);
+									elementLight.setText(ConstantesXML.lightSensor);
+									sensorList.add(elementLight);
+								}
+								if(uicr.getContactSensor().isSelected()){
+									robot = new ContactSensor(robot);
+									Element elementContact = new Element(ConstantesXML.sensorName);
+									elementContact.setText(ConstantesXML.contactSensor);
+									sensorList.add(elementContact);
+								}
+								if(uicr.getTemperatureSensor().isSelected()){
+									robot = new TemperatureSensor(robot);
+									Element elementTemp = new Element(ConstantesXML.sensorName);
+									elementTemp.setText(ConstantesXML.temperatureSensor);
+									sensorList.add(elementTemp);
+								}
+								robot.saveRobot(uicr.getNameRobot().getText()+".xml",sensorList);
+								robot.loadRobot(uicr.getNameRobot().getText()+".xml");
+							}
+							else{
+								JOptionPane.showMessageDialog(null,"Use only  number for your speed limit");
+							}
+						}
+						else{
+							JOptionPane.showMessageDialog(null,"Enter the speed limit for your Robot");
+						}
+					}
+					else{
+						JOptionPane.showMessageDialog(null,"Enter a name for your Robot");
+					}
+				}
 			}
 		});
 		btnNewButton_2.setBounds(675, 41, 109, 23);

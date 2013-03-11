@@ -67,11 +67,11 @@ public class UICreateRobot extends JPanel implements ActionListener{
 		this.add(this.contactSensor,c);
 		c.gridy = 6;
 		this.add(this.temperatureSensor,c);
-		c.gridy = 7;
+		/*c.gridy = 7;
 		c.gridwidth = 1;
 		c.gridx = 1;
 		this.createButton.addActionListener(this);
-		this.add(this.createButton,c);
+		this.add(this.createButton,c);*/
 		
 		this.updateUI();
 		this.validate();
@@ -127,4 +127,54 @@ public class UICreateRobot extends JPanel implements ActionListener{
 			}
 		}
 	}
+
+	public JTextField getNameRobot() {
+		return nameRobot;
+	}
+
+	public void setNameRobot(JTextField nameRobot) {
+		this.nameRobot = nameRobot;
+	}
+
+	public JTextField getSpeedRobot() {
+		return speedRobot;
+	}
+
+	public void setSpeedRobot(JTextField speedRobot) {
+		this.speedRobot = speedRobot;
+	}
+
+	public JCheckBox getTemperatureSensor() {
+		return temperatureSensor;
+	}
+
+	public void setTemperatureSensor(JCheckBox temperatureSensor) {
+		this.temperatureSensor = temperatureSensor;
+	}
+
+	public JCheckBox getLightSensor() {
+		return lightSensor;
+	}
+
+	public void setLightSensor(JCheckBox lightSensor) {
+		this.lightSensor = lightSensor;
+	}
+
+	public JCheckBox getContactSensor() {
+		return contactSensor;
+	}
+
+	public void setContactSensor(JCheckBox contactSensor) {
+		this.contactSensor = contactSensor;
+	}
+
+	public JButton getCreateButton() {
+		return createButton;
+	}
+
+	public void setCreateButton(JButton createButton) {
+		this.createButton = createButton;
+	}
+	
+	
 }

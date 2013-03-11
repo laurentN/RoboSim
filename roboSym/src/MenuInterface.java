@@ -84,6 +84,7 @@ public class MenuInterface implements ActionListener {
         };
         
         
+        frmRobosim.addWindowListener(exitListener);
 		frmRobosim.setResizable(false);
 		frmRobosim.setTitle("RoboSim");
 		frmRobosim.setBounds(100, 100, 799, 600);
@@ -186,7 +187,6 @@ public class MenuInterface implements ActionListener {
 	public BufferedImage createResizedCopy(Image originalImage, 
     		int scaledWidth, int scaledHeight)
     {
-    	System.out.println("resizing...");
     	int imageType = BufferedImage.TYPE_INT_RGB;
     	BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, imageType);
     	Graphics2D g = scaledBI.createGraphics();

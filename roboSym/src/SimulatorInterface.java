@@ -54,6 +54,7 @@ public class SimulatorInterface implements ActionListener {
 		initialize();
 	}
 
+	/**/
 	/**
 	 * Initialize the contents of the frame.
 	 */

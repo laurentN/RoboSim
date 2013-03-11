@@ -81,7 +81,7 @@ public class UIMap extends java.awt.Frame implements Serializable
         return next;
     }
     
-    public void setRobot(ArrayList<Node> arrayNode){
+    public void setRobot(ArrayList<Node> arrayNode) throws InterruptedException{
     	Position pos;
     	int x;
     	int y;
@@ -100,6 +100,7 @@ public class UIMap extends java.awt.Frame implements Serializable
         		robotPositionY = y;
         		gridCell[x][y].setRobot(true);
         	}
+        	Thread.sleep(1500);
     	}
 
     	

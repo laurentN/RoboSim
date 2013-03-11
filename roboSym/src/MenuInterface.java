@@ -44,18 +44,7 @@ public class MenuInterface implements ActionListener {
 			public void run() {
 				try {
 					MenuInterface window = new MenuInterface();
-					window.frmRobosim.setVisible(true);
-					WindowListener exitListener = new WindowAdapter() {
-
-			            public void windowClosing(WindowEvent e) {
-			                int confirm = JOptionPane.showOptionDialog(null, "Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-			                if (confirm == JOptionPane.YES_OPTION){
-			                	System.exit(0);
-			                }
-			            }
-			        };
-					window.frmRobosim.addWindowListener(exitListener);
-					
+					window.frmRobosim.setVisible(true);					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

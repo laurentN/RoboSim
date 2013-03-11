@@ -1,4 +1,3 @@
-import java.awt.Checkbox;
 import java.awt.Component;
 import java.util.ArrayList;
 

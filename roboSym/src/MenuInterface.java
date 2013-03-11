@@ -73,6 +73,18 @@ public class MenuInterface implements ActionListener {
 	 */
 	private void initialize() {
 		frmRobosim = new JFrame();
+		
+		WindowListener exitListener = new WindowAdapter() {
+
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showOptionDialog(null, "Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                if (confirm == JOptionPane.YES_OPTION)
+                	System.exit(0);
+            }
+        };
+        
+        
+        frmRobosim.addWindowListener(exitListener);
 		frmRobosim.setResizable(false);
 		frmRobosim.setTitle("RoboSim");
 		frmRobosim.setBounds(100, 100, 799, 600);
@@ -175,7 +187,6 @@ public class MenuInterface implements ActionListener {
 	public BufferedImage createResizedCopy(Image originalImage, 
     		int scaledWidth, int scaledHeight)
     {
-    	System.out.println("resizing...");
     	int imageType = BufferedImage.TYPE_INT_RGB;
     	BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, imageType);
     	Graphics2D g = scaledBI.createGraphics();

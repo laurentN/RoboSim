@@ -1,13 +1,17 @@
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.FilteredImageSource;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -158,12 +162,13 @@ public class MenuInterface implements ActionListener {
 			BufferedImage myPicture = ImageIO.read(new File("image1.png"));
 			
 			Image thePicture = myPicture.getScaledInstance(500, 500, Image.SCALE_DEFAULT );
+			
 			BufferedImage pictureResized = createResizedCopy(thePicture, 200, 200);
 			JLabel picLabel = new JLabel(new ImageIcon(pictureResized));
 			picLabel.setBounds(131, 340, 200, 200);
 			frmRobosim.getContentPane().add(picLabel);
 			
-			BufferedImage myPicture2 = ImageIO.read(new File("image2.jpg"));
+			BufferedImage myPicture2 = ImageIO.read(new File("image2.png"));
 			
 			Image thePicture2 = myPicture2.getScaledInstance(500, 500, Image.SCALE_DEFAULT );
 			BufferedImage pictureResized2 = createResizedCopy(thePicture2, 200, 200);
@@ -184,7 +189,7 @@ public class MenuInterface implements ActionListener {
 	public BufferedImage createResizedCopy(Image originalImage, 
     		int scaledWidth, int scaledHeight)
     {
-    	int imageType = BufferedImage.TYPE_INT_RGB;
+    	int imageType = BufferedImage.TYPE_INT_ARGB;
     	BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, imageType);
     	Graphics2D g = scaledBI.createGraphics();
     	g.drawImage(originalImage, 0, 0, scaledWidth, scaledHeight, null); 

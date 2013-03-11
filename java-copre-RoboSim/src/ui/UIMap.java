@@ -7,9 +7,12 @@ import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
+import java.util.ArrayList;
 
+import model.Position;
 import model.map.GridCell;
 import model.map.Map;
+import model.pathfinding.Node;
 
 @SuppressWarnings("serial")
 public class UIMap extends java.awt.Frame implements Serializable
@@ -78,18 +81,27 @@ public class UIMap extends java.awt.Frame implements Serializable
         return next;
     }
     
-    public void setRobot(int x , int y){
-    	if (robotPositionX == -1 || robotPositionY == -1){
-    		robotPositionX = x;
-    		robotPositionY = y;
-    		gridCell[x][y].setRobot(true);
+    public void setRobot(ArrayList<Node> arrayNode){
+    	Position pos;
+    	int x;
+    	int y;
+    	for(int i = 0;i < arrayNode.size(); i ++){
+    		pos = arrayNode.get(i).getPosition();
+    		x = pos.getX();
+    		y = pos.getY();
+        	if (robotPositionX == -1 || robotPositionY == -1){
+        		robotPositionX = x;
+        		robotPositionY = y;
+        		gridCell[x][y].setRobot(true);
+        	}
+        	else{
+        		gridCell[robotPositionX][robotPositionY].setRobot(false);
+        		robotPositionX = x;
+        		robotPositionY = y;
+        		gridCell[x][y].setRobot(true);
+        	}
     	}
-    	else{
-    		gridCell[robotPositionX][robotPositionY].setRobot(false);
-    		robotPositionX = x;
-    		robotPositionY = y;
-    		gridCell[x][y].setRobot(true);
-    	}
+
     	
     }
 		//{{REGISTER_LISTENERS

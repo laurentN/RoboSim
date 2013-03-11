@@ -11,10 +11,12 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
@@ -113,26 +115,23 @@ public class SimulatorInterface implements ActionListener {
 		btnChoisirUnRobot.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnChoisirUnRobot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
-				DefaultListModel listModel = new DefaultListModel();
-				JList liste = new JList();
-				liste.setCellRenderer(new ListeCellrendererRobot());
-				liste.setModel(listModel);
-				
 				ArrayList<String> theRobots = FileUtils.findFiles("SavedRobots/");
-				
-				//Ajout d'éléments
-				for(String s : theRobots ){
-					listModel.addElement(s);
+				ArrayList<JCheckBox> checkBoxList = new ArrayList<JCheckBox>();
+				Object[][] donnees = new Object[theRobots.size()][2];
+				for(int j=0;j<theRobots.size();j++){
+					checkBoxList.add(new JCheckBox());
+					donnees[j][0] = checkBoxList.get(j);
+					donnees[j][1] = theRobots.get(j);
 				}
-				
-				//liste.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-				
-				int i = JOptionPane.showOptionDialog(null, liste, "Select Robot for Simulation",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"OK"},"OK");
+				String[] entetes = {"Check","Nom"};
+				JTable table = new JTable(donnees, entetes);
+				table.getColumnModel().getColumn(0).setCellRenderer(new ListeCellrendererRobot(checkBoxList,table));
+				int i = JOptionPane.showOptionDialog(null, table, "Select Robot for Simulation",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"OK"},"OK");
 				if(i==0){
-					for(int j=0;j<listModel.size();j++){
-						System.out.println(listModel.get(j));
+					for(int j=0;j<theRobots.size();j++){
+						if(checkBoxList.get(j).isSelected()){
+							System.out.println(theRobots.get(j));
+						}
 					}
 				}
 			}

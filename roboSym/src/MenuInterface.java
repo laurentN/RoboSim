@@ -101,45 +101,51 @@ public class MenuInterface implements ActionListener {
 		btnCrerRobot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UICreateRobot uicr = new UICreateRobot();
-				int i = JOptionPane.showOptionDialog(null, uicr, "Create a Robot",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"create"},"Create");
-				System.out.println(i);
-				if(i==0){
-					if(!uicr.getNameRobot().getText().equals("") && StringUtils.stringValide(uicr.getNameRobot().getText())){
-						if(!uicr.getSpeedRobot().getText().equals("")){
-							if(StringUtils.isANumber(uicr.getSpeedRobot().getText())){
-								ArrayList<Element> sensorList = new ArrayList<Element>();
-								Robot robot = new Robot(Integer.parseInt(uicr.getSpeedRobot().getText()),uicr.getNameRobot().getText());
-								if(uicr.getLightSensor().isSelected()){
-									robot = new LightSensor(robot);
-									Element elementLight = new Element(ConstantesXML.sensorName);
-									elementLight.setText(ConstantesXML.lightSensor);
-									sensorList.add(elementLight);
+				boolean finish = true;
+				while(finish){
+					int i = JOptionPane.showOptionDialog(null, uicr, "Create a Robot",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"create"},"Create");
+					if(i==0){
+						if(!uicr.getNameRobot().getText().equals("") && StringUtils.stringValide(uicr.getNameRobot().getText())){
+							if(!uicr.getSpeedRobot().getText().equals("")){
+								if(StringUtils.isANumber(uicr.getSpeedRobot().getText())){
+									finish =false;
+									ArrayList<Element> sensorList = new ArrayList<Element>();
+									Robot robot = new Robot(Integer.parseInt(uicr.getSpeedRobot().getText()),uicr.getNameRobot().getText());
+									if(uicr.getLightSensor().isSelected()){
+										robot = new LightSensor(robot);
+										Element elementLight = new Element(ConstantesXML.sensorName);
+										elementLight.setText(ConstantesXML.lightSensor);
+										sensorList.add(elementLight);
+									}
+									if(uicr.getContactSensor().isSelected()){
+										robot = new ContactSensor(robot);
+										Element elementContact = new Element(ConstantesXML.sensorName);
+										elementContact.setText(ConstantesXML.contactSensor);
+										sensorList.add(elementContact);
+									}
+									if(uicr.getTemperatureSensor().isSelected()){
+										robot = new TemperatureSensor(robot);
+										Element elementTemp = new Element(ConstantesXML.sensorName);
+										elementTemp.setText(ConstantesXML.temperatureSensor);
+										sensorList.add(elementTemp);
+									}
+									robot.saveRobot(uicr.getNameRobot().getText()+".xml",sensorList);
+									robot.loadRobot(uicr.getNameRobot().getText()+".xml");
 								}
-								if(uicr.getContactSensor().isSelected()){
-									robot = new ContactSensor(robot);
-									Element elementContact = new Element(ConstantesXML.sensorName);
-									elementContact.setText(ConstantesXML.contactSensor);
-									sensorList.add(elementContact);
+								else{
+									JOptionPane.showMessageDialog(null,"Use only  number for your speed limit");
 								}
-								if(uicr.getTemperatureSensor().isSelected()){
-									robot = new TemperatureSensor(robot);
-									Element elementTemp = new Element(ConstantesXML.sensorName);
-									elementTemp.setText(ConstantesXML.temperatureSensor);
-									sensorList.add(elementTemp);
-								}
-								robot.saveRobot(uicr.getNameRobot().getText()+".xml",sensorList);
-								robot.loadRobot(uicr.getNameRobot().getText()+".xml");
 							}
 							else{
-								JOptionPane.showMessageDialog(null,"Use only  number for your speed limit");
+								JOptionPane.showMessageDialog(null,"Enter the speed limit for your Robot");
 							}
 						}
 						else{
-							JOptionPane.showMessageDialog(null,"Enter the speed limit for your Robot");
+							JOptionPane.showMessageDialog(null,"Enter a name for your Robot");
 						}
 					}
 					else{
-						JOptionPane.showMessageDialog(null,"Enter a name for your Robot");
+						finish =false;
 					}
 				}
 			}

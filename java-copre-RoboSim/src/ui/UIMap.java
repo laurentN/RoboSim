@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ import model.map.Map;
 import model.pathfinding.Node;
 
 @SuppressWarnings("serial")
-public class UIMap extends JPanel implements Serializable
+public class UIMap extends JPanel implements Serializable,MouseListener
 {
     int w = 40;
     int h = 40;
@@ -27,8 +29,9 @@ public class UIMap extends JPanel implements Serializable
     GridCell gridCell[][] = new GridCell[w][h];
 	public UIMap(int FrameSizeX, int FrameSizeY, Map map)
 	{
-		
 		super();
+		this.addMouseListener(this);
+
 		boolean grid[][] = map.getGrid();
 		//{{INIT_CONTROLS
 		setLayout(new GridLayout(w,h));
@@ -114,5 +117,35 @@ public class UIMap extends JPanel implements Serializable
 		//};
 	//{{DECLARE_CONTROLS
 	//}}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println(e.getX()+","+e.getY());
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

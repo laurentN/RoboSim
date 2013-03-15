@@ -212,9 +212,6 @@ public class SimulatorInterface implements ActionListener {
 		btnNewButton_2.setBounds(675, 41, 109, 23);
 		frame.getContentPane().add(btnNewButton_2);
 		
-		
-		/*****/
-		/**/
 		try
 		{
 			this.map = new Map();
@@ -266,7 +263,6 @@ public class SimulatorInterface implements ActionListener {
 				try {				
 					this.uiMap.setRobot(this.pathCalculate.get(this.numberNode),this.frame);
 					this.frame.validate();
-					//this.frame.getContentPane().repaint();
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

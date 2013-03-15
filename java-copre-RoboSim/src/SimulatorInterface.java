@@ -119,23 +119,29 @@ public class SimulatorInterface implements ActionListener {
 		btnChoisirUnRobot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ArrayList<String> theRobots = FileUtils.findFiles("SavedRobots/");
-				ArrayList<JCheckBox> checkBoxList = new ArrayList<JCheckBox>();
-				Object[][] donnees = new Object[theRobots.size()][2];
-				for(int j=0;j<theRobots.size();j++){
-					checkBoxList.add(new JCheckBox());
-					donnees[j][0] = checkBoxList.get(j);
-					donnees[j][1] = theRobots.get(j);
-				}
-				String[] entetes = {"Check","Nom"};
-				JTable table = new JTable(donnees, entetes);
-				table.getColumnModel().getColumn(0).setCellRenderer(new ListeCellrendererRobot(checkBoxList,table));
-				int i = JOptionPane.showOptionDialog(null, table, "Select Robot for Simulation",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"OK"},"OK");
-				if(i==0){
+				if(theRobots.size()>0){
+					ArrayList<JCheckBox> checkBoxList = new ArrayList<JCheckBox>();
+					Object[][] donnees = new Object[theRobots.size()][2];
 					for(int j=0;j<theRobots.size();j++){
-						if(checkBoxList.get(j).isSelected()){
-							System.out.println(theRobots.get(j));
+						checkBoxList.add(new JCheckBox());
+						donnees[j][0] = checkBoxList.get(j);
+						donnees[j][1] = theRobots.get(j).split(".xml")[0];
+					}
+					String[] entetes = {"Check","Nom"};
+					JTable table = new JTable(donnees, entetes);
+					table.getColumnModel().getColumn(0).setCellRenderer(new ListeCellrendererRobot(checkBoxList,table));
+					int i = JOptionPane.showOptionDialog(null, table, "Select Robot for Simulation",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"OK"},"OK");
+					if(i==0){
+						for(int j=0;j<theRobots.size();j++){
+							if(checkBoxList.get(j).isSelected()){
+								System.out.println(theRobots.get(j));
+							}
 						}
 					}
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"You have to create a Robot before choosen one");
+					
 				}
 			}
 		});

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Robot>
+  <name>Jimmy</name>
+  <speed>500</speed>
+  <position>
+    <positionx>-1</positionx>
+    <positiony>-1</positiony>
+  </position>
+  <sensorList>
+    <sensorName>contactSensor</sensorName>
+  </sensorList>
+</Robot>

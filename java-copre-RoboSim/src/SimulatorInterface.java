@@ -90,7 +90,7 @@ public class SimulatorInterface implements ActionListener {
 		frame.addWindowListener(exitListener);
 		frame.setResizable(true);
 		frame.setBounds(100, 100, 800, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();

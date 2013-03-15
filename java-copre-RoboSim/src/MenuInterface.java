@@ -24,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import model.map.Map;
 import model.robot.ConstantesXML;
 import model.robot.ContactSensor;
 import model.robot.LightSensor;
@@ -33,6 +34,7 @@ import model.robot.TemperatureSensor;
 import org.jdom2.Element;
 
 import ui.UICreateRobot;
+import ui.UIMap;
 import utils.StringUtils;
 
 
@@ -56,6 +58,8 @@ public class MenuInterface implements ActionListener {
 		});
 	}
 
+	
+	
 	/**
 	 * Create the application.
 	 */

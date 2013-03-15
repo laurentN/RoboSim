@@ -3,6 +3,7 @@
 	<name>java-interface-RoboSym</name>
 	<comment></comment>
 	<projects>
+		<project>java-core-RoboSim</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

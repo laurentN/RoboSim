@@ -20,6 +20,8 @@ import javax.swing.JTable;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
+import model.map.Map;
+import model.map.MapException;
 import model.robot.ConstantesXML;
 import model.robot.ContactSensor;
 import model.robot.LightSensor;
@@ -29,6 +31,7 @@ import model.robot.TemperatureSensor;
 import org.jdom2.Element;
 
 import ui.UICreateRobot;
+import ui.UIMap;
 import utils.FileUtils;
 import utils.StringUtils;
 
@@ -116,23 +119,29 @@ public class SimulatorInterface implements ActionListener {
 		btnChoisirUnRobot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ArrayList<String> theRobots = FileUtils.findFiles("SavedRobots/");
-				ArrayList<JCheckBox> checkBoxList = new ArrayList<JCheckBox>();
-				Object[][] donnees = new Object[theRobots.size()][2];
-				for(int j=0;j<theRobots.size();j++){
-					checkBoxList.add(new JCheckBox());
-					donnees[j][0] = checkBoxList.get(j);
-					donnees[j][1] = theRobots.get(j);
-				}
-				String[] entetes = {"Check","Nom"};
-				JTable table = new JTable(donnees, entetes);
-				table.getColumnModel().getColumn(0).setCellRenderer(new ListeCellrendererRobot(checkBoxList,table));
-				int i = JOptionPane.showOptionDialog(null, table, "Select Robot for Simulation",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"OK"},"OK");
-				if(i==0){
+				if(theRobots.size()>0){
+					ArrayList<JCheckBox> checkBoxList = new ArrayList<JCheckBox>();
+					Object[][] donnees = new Object[theRobots.size()][2];
 					for(int j=0;j<theRobots.size();j++){
-						if(checkBoxList.get(j).isSelected()){
-							System.out.println(theRobots.get(j));
+						checkBoxList.add(new JCheckBox());
+						donnees[j][0] = checkBoxList.get(j);
+						donnees[j][1] = theRobots.get(j).split(".xml")[0];
+					}
+					String[] entetes = {"Check","Nom"};
+					JTable table = new JTable(donnees, entetes);
+					table.getColumnModel().getColumn(0).setCellRenderer(new ListeCellrendererRobot(checkBoxList,table));
+					int i = JOptionPane.showOptionDialog(null, table, "Select Robot for Simulation",JOptionPane.NO_OPTION,JOptionPane.NO_OPTION,null,new String[] {"OK"},"OK");
+					if(i==0){
+						for(int j=0;j<theRobots.size();j++){
+							if(checkBoxList.get(j).isSelected()){
+								System.out.println(theRobots.get(j));
+							}
 						}
 					}
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"You have to create a Robot before choosen one");
+					
 				}
 			}
 		});
@@ -196,10 +205,26 @@ public class SimulatorInterface implements ActionListener {
 		btnNewButton_2.setBounds(675, 41, 109, 23);
 		frame.getContentPane().add(btnNewButton_2);
 		
+		
+		/*****/
+		/**/
+		try
+		{
+			Map map1 = new Map();
+			
+			map1.load("src\\data\\mapNonVide.map");
+			UIMap uimap = new UIMap(465,475,map1);
+			uimap.setBounds(204, 11, 465, 475);
+			frame.getContentPane().add(uimap);
+		}
+		catch (MapException e){}
+		
+		/*
 		Canvas canvas = new Canvas();
 		canvas.setBackground(Color.GRAY);
 		canvas.setBounds(204, 11, 465, 475);
 		frame.getContentPane().add(canvas);
+		//frame.getContentPane().add(uimap);*/
 	}
 	
 	public JFrame getFrame(){

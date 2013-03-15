@@ -30,6 +30,17 @@ public class Robot extends ARobot{
 	 * @param sensorList
 	 */
 	public void saveRobot(String fileName,ArrayList<Element> sensorList){
+		
+		 File file = new File("SavedRobots/");
+		 if(file.mkdir()){
+			 
+		 }
+		 try {
+			file.createNewFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Element racine = new Element(ConstantesXML.robot);
 		Document document = new Document(racine);
 		
@@ -63,7 +74,7 @@ public class Robot extends ARobot{
 		      XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 		      //Remarquez qu'il suffit simplement de créer une instance de FileOutputStream
 		      //avec en argument le nom du fichier pour effectuer la sérialisation.
-		      sortie.output(document, new FileOutputStream(fileName));
+		      sortie.output(document, new FileOutputStream("SavedRobots/"+fileName));
 		   }
 		   catch (IOException e){
 			   e.printStackTrace();
@@ -77,7 +88,8 @@ public class Robot extends ARobot{
 	      {
 	         //On crée un nouveau document JDOM avec en argument le fichier XML
 	         //Le parsing est terminé ;)
-	        Document  document = sxb.build(new File(fileName));
+			
+	        Document  document = sxb.build(new File("SavedRobots/"+fileName));
 	        Element racine = document.getRootElement();
 	        String name = racine.getChildText(ConstantesXML.name);
 	        int speed = Integer.parseInt(racine.getChildText(ConstantesXML.speed));

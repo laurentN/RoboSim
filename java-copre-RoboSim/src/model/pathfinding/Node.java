@@ -22,11 +22,26 @@ public class Node
 	/**
 	 * 
 	 * @param node a node
-	 * @return return true if the position of this and the parameter are equals
+	 * @return return true if the position of this and the parameter are equals, false otherwise
 	 */
 	public boolean equals(Node node)
 	{
 		return (this.position.getX() == node.getPosition().getX() && this.position.getY() == node.getPosition().getY());
+	}
+	
+	/**
+	 * 
+	 * @param node a node
+	 * @return return true if the position of this is next (+/- 1) to the position of the parameter, false otherwise
+	 */
+	public boolean isNextTo(Node node)
+	{
+		return Math.abs(this.getPosition().getX() - node.getPosition().getX()) <= 1 && Math.abs(this.getPosition().getY() - node.getPosition().getY()) <= 1;
+	}
+	
+	
+	public String toString(){
+		return "Node : x="+this.getPosition().getX()+", y="+this.getPosition().getY()+", g="+this.getCostG()+", h="+this.getCostH()+", f="+this.getCostF();
 	}
 
 	public int getCostF() {
@@ -43,6 +58,7 @@ public class Node
 
 	public void setCostG(int costG) {
 		this.costG = costG;
+		this.costF = this.costG + this.costH;
 	}
 
 	public int getCostH() {
@@ -51,6 +67,7 @@ public class Node
 
 	public void setCostH(int costH) {
 		this.costH = costH;
+		this.costF = this.costG + this.costH;
 	}
 
 	public Position getPosition() {

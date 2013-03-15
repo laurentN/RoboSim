@@ -18,12 +18,13 @@ public class FileUtils
 		File directory = new File(path);
 		
 		File[] subfiles = directory.listFiles();
-		
-		for(int i=0 ; i < subfiles.length; i++)
-		{
-			if(!subfiles[i].getName().equals(".svn"))
-				listeNom.add(subfiles[i].getName());
-           
+		if(subfiles!=null){
+			for(int i=0 ; i < subfiles.length; i++)
+			{
+				if(!subfiles[i].getName().equals(".svn"))
+					listeNom.add(subfiles[i].getName());
+	           
+			}
 		}
 		
 		return listeNom;

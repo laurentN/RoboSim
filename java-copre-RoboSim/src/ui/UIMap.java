@@ -87,6 +87,7 @@ public class UIMap extends java.awt.Panel implements Serializable
     	int x;
     	int y;
     	for(int i = 0;i < arrayNode.size(); i ++){
+    		System.out.println(i);
     		pos = arrayNode.get(i).getPosition();
     		x = pos.getX();
     		y = pos.getY();
@@ -102,10 +103,21 @@ public class UIMap extends java.awt.Panel implements Serializable
         		gridCell[x][y].setRobot(true);
         	}
         	Thread.sleep(1500);
+        	this.repaint();
+        	//for(int j = 0; j < 10000000; j++){}
     	}
 
     	
+    	
     }
+    public void setStart(int x,int y)
+	{
+		gridCell[x][y].setStart(true);
+	}
+    public void setFinish(int x,int y)
+	{
+		gridCell[x][y].setFinish(true);
+	}
 		//{{REGISTER_LISTENERS
 		//};
 	//{{DECLARE_CONTROLS

@@ -9,19 +9,18 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListModel;
-import javax.swing.ListSelectionModel;
 
+import model.Position;
 import model.map.Map;
 import model.map.MapException;
+import model.pathfinding.Node;
+import model.pathfinding.PathFinding;
 import model.robot.ConstantesXML;
 import model.robot.ContactSensor;
 import model.robot.LightSensor;
@@ -34,12 +33,16 @@ import ui.UICreateRobot;
 import ui.UIMap;
 import utils.FileUtils;
 import utils.StringUtils;
+import control.simulation.Simulation;
 
 
 public class SimulatorInterface implements ActionListener {
 
 	private JFrame frame;
-
+	private UIMap uiMap;
+	private Map map;
+	private String path;
+	private ArrayList<Node> listNode;
 	/**
 	 * Launch the application.
 	 */
@@ -97,10 +100,7 @@ public class SimulatorInterface implements ActionListener {
 		//g.drawRect(5,5,20,30);
 		
 		JButton btnNewButton = new JButton("play");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnNewButton.addActionListener(this);
 		btnNewButton.setBounds(341, 492, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 		
@@ -210,12 +210,18 @@ public class SimulatorInterface implements ActionListener {
 		/**/
 		try
 		{
-			Map map1 = new Map();
+			this.map = new Map();
+			this.path = "src\\data\\mapNonVide.map";
+			map.load(this.path);
+			this.uiMap = new UIMap(465,475,this.map);
+			uiMap.setStart(20,20);
+			uiMap.setFinish(10,10);
+					
+
+			this.uiMap.setBounds(204, 11, 465, 475);
+			frame.getContentPane().add(this.uiMap);
+
 			
-			map1.load("src\\data\\mapNonVide.map");
-			UIMap uimap = new UIMap(465,475,map1);
-			uimap.setBounds(204, 11, 465, 475);
-			frame.getContentPane().add(uimap);
 		}
 		catch (MapException e){}
 		
@@ -234,6 +240,25 @@ public class SimulatorInterface implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		try {
+			Simulation sim = new Simulation(map, null, new Position(20,20), new Position(10,10));
+			
+			PathFinding pf = new PathFinding(new Position(20,20), new Position(10,10), map, sim);
+			
+			ArrayList<Node> pathCalculate = pf.mainSearchBis();
+			ArrayList<Position> p = new ArrayList<Position>();
+			
+			for(Node n : pathCalculate)
+			{
+				p.add(n.getPosition());
+			}
+			
+			this.uiMap.setRobot(pathCalculate);
+			this.frame.repaint();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	}
 	

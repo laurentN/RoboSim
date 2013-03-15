@@ -9,7 +9,7 @@ import model.robot.Robot;
 
 public class Simulation 
 {
-	
+	public static final int timerDisplayMove = 10;
 	private Map map;
 	private Robot robot;
 	
@@ -29,9 +29,21 @@ public class Simulation
 	 * change the position of the robot
 	 * @param newPosition it's the new position for the robot
 	 */
-	public void changeRobotPosition(Position newPosition)
+	public void changeRobotPosition(ArrayList<Node> newPath)
 	{
-		this.robotPosition = newPosition;
+		for(Node n : newPath)
+		{
+			this.robotPosition = n.getPosition();
+			this.displayMap(this.robotPosition);
+			
+			try {
+				Thread.sleep(timerDisplayMove);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	/**
@@ -90,25 +102,28 @@ public class Simulation
 		{
 			for (int j = 0 ; j < this.map.getGrid()[0].length;j++)
 			{
+				boolean bool = false;
 				if(this.initialPosition.getX() == i && this.initialPosition.getY() == j)
 				{
 					s+="i";
+					bool = true;
 				}
 				else if(this.finalPosition.getX() == i && this.finalPosition.getY() == j)
 				{
 					s+="f";
+					bool = true;
 				}
-//				else if(this.robotPosition.getX() == i && this.robotPosition.getY() == j)
-//				{
-//					s+="r";
-//				}
-				boolean bool = false;
+				else if(this.robotPosition.getX() == i && this.robotPosition.getY() == j)
+				{
+					s+="r";
+					bool = true;
+				}
 
-					if(p.getX() == i && p.getY() == j)
-					{
-						s+="p";
-						bool = true;
-					}
+//					if(p.getX() == i && p.getY() == j)
+//					{
+//						s+="p";
+//						bool = true;
+//					}
 				
 				if (!bool && this.map.getGrid()[i][j]) 
 					s+="@";

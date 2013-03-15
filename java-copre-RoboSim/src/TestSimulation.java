@@ -23,18 +23,20 @@ public class TestSimulation
 		} catch (MapException e) {
 			e.printStackTrace();
 		}
-		PathFinding pf = new PathFinding(new Position(5,8), new Position(9,9), m);
+		Simulation sim = new Simulation(m, null, new Position(5,8), new Position(25,23));
 		
-		ArrayList<Node> path = pf.mainSearch();
+		PathFinding pf = new PathFinding(new Position(5,8), new Position(25,23), m, sim);
+		
+		ArrayList<Node> path = pf.mainSearchBis();
 		ArrayList<Position> p = new ArrayList<Position>();
 		
 		for(Node n : path)
 		{
-			System.out.println(n);
+			//System.out.println(n);
 			p.add(n.getPosition());
 		}
 		
-		Simulation sim = new Simulation(m, null, new Position(5,8), new Position(9,9));
+		
 //		sim.changeRobotPosition(new Position(8,8));
 		
 		

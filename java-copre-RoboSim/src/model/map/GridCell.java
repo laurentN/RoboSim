@@ -9,8 +9,10 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.Vector;
 
+import javax.swing.JPanel;
+
 @SuppressWarnings("serial")
-public class GridCell extends java.awt.Component implements Serializable
+public class GridCell extends JPanel implements Serializable
 {
     public static final int SET_BLOCKS=0,SET_START=1,SET_FINISH=2;
     private static int editMode = SET_BLOCKS;
@@ -32,9 +34,8 @@ public class GridCell extends java.awt.Component implements Serializable
     private Point position;
     
     public GridCell(){
-        cells.addElement(this);
-
-        tidy=true;
+        this.cells.addElement(this);
+        this.tidy=true;
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);
     }
     
@@ -45,13 +46,13 @@ public class GridCell extends java.awt.Component implements Serializable
     public GridCell(boolean block){
         this();
         if(block){
-        	isWall = true;
+        	this.isWall = true;
         	this.setBackground(Color.black);
         }
     }
     
     public void setPosition(Point p){
-        position = p;
+        this.position = p;
     }
     
     public Point getPosition(){
@@ -97,18 +98,20 @@ public class GridCell extends java.awt.Component implements Serializable
     }
     
     public void setStart(boolean flag){
-            if(flag){
-                GridCell temp = this;
-                if(startCell !=null){temp = startCell;temp.setStart(false);}
-                startCell=this;
-                isStart=true;
-                repaint();
-                temp.repaint();
+        if(flag){
+            GridCell temp = this;
+            if(startCell !=null){
+            	temp = startCell;temp.setStart(false);
             }
-            else{
-                isStart=false;
-            }
-               
+            startCell=this;
+            isStart=true;
+            repaint();
+            temp.repaint();
+        }
+        else{
+            isStart=false;
+        }
+        
     }
     
      public static GridCell getFinishCell(){
@@ -122,11 +125,11 @@ public class GridCell extends java.awt.Component implements Serializable
     public void setFinish(boolean flag){
         if(flag){
             GridCell temp = this;
-            if(finishCell!=null){temp=finishCell;temp.setFinish(false);}
+            if(finishCell!=null){
+            	temp=finishCell;temp.setFinish(false);
+            }
             finishCell=this;
             isFinish=true;
-            repaint();
-            temp.repaint();
         }
         else{
                 isFinish=false;
@@ -153,27 +156,25 @@ public class GridCell extends java.awt.Component implements Serializable
         Dimension size = getSize();
         g.setColor(Color.white); 
         if(isWall){
-           g.setColor(Color.black);
+           g.setColor(Color.BLACK);
         }
         if(isRobot){
-            g.setColor(Color.yellow);
+            g.setColor(Color.ORANGE);
         }
         if(startCell == this){
-            g.setColor(Color.green);
+            g.setColor(Color.GREEN);
         }
         if(finishCell == this){
             g.setColor(Color.red);
         }
-        g.fillRect(0,0,size.width,size.height);
-                
-            
+        g.fillRect(0,0,size.width,size.height);             
         g.setColor(Color.black);
         g.drawRect(0,0,size.width,size.height);    
-            
     }
     
     public void setRobot(boolean robot){
-    	isRobot = robot;
+    	this.isRobot = robot;
+    	this.updateUI();
     	repaint();
     }
  

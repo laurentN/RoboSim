@@ -4,10 +4,11 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import model.Position;
 import model.map.GridCell;
@@ -15,7 +16,7 @@ import model.map.Map;
 import model.pathfinding.Node;
 
 @SuppressWarnings("serial")
-public class UIMap extends java.awt.Panel implements Serializable
+public class UIMap extends JPanel implements Serializable
 {
     int w = 40;
     int h = 40;
@@ -28,7 +29,6 @@ public class UIMap extends java.awt.Panel implements Serializable
 	{
 		
 		super();
-
 		boolean grid[][] = map.getGrid();
 		//{{INIT_CONTROLS
 		setLayout(new GridLayout(w,h));
@@ -45,22 +45,16 @@ public class UIMap extends java.awt.Panel implements Serializable
         }
         
         this.setVisible(true);
-       //this.setResizable(false);
-        /*
-        this.addWindowListener(new WindowAdapter() {
-        	public void windowClosing(WindowEvent we){
-        		System.exit(0);
-        	}
-		});*/
     }
     
     public void paint(Graphics g){
-        if(buffer == null){buffer = createImage(getBounds().width,getBounds().height);}
+        if(buffer == null){
+        	buffer = createImage(getBounds().width,getBounds().height);
+        }
         Graphics bg = buffer.getGraphics();
         super.paint(bg);
         bg.setColor(Color.black);
         g.drawImage(buffer,0,0,null);
-        //g.drawRect(0,0,getBounds().width-1,getBounds().height-1);
     }
     
     public void update(Graphics g){
@@ -75,22 +69,26 @@ public class UIMap extends java.awt.Panel implements Serializable
     public GridCell[] getAdjacent(GridCell g){
         GridCell next[] = new GridCell[4];
         Point p = g.getPosition();
-        if(p.y!=0){next[0]=gridCell[p.x][p.y-1];}
-        if(p.x!=w-1){next[1]=gridCell[p.x+1][p.y];}
-        if(p.y!=h-1){next[2]=gridCell[p.x][p.y+1];}
-        if(p.x!=0){next[3]=gridCell[p.x-1][p.y];}
+        if(p.y!=0){
+        	next[0]=gridCell[p.x][p.y-1];
+        }
+        if(p.x!=w-1){
+        	next[1]=gridCell[p.x+1][p.y];
+        }
+        if(p.y!=h-1){
+        	next[2]=gridCell[p.x][p.y+1];
+        }
+        if(p.x!=0){
+        	next[3]=gridCell[p.x-1][p.y];
+        }
         return next;
     }
     
-    public void setRobot(ArrayList<Node> arrayNode) throws InterruptedException{
-    	Position pos;
+    public void setRobot(Node node,JFrame frame) throws InterruptedException{
     	int x;
     	int y;
-    	for(int i = 0;i < arrayNode.size(); i ++){
-    		System.out.println(i);
-    		pos = arrayNode.get(i).getPosition();
-    		x = pos.getX();
-    		y = pos.getY();
+    		x = node.getPosition().getX();
+    		y = node.getPosition().getY();
         	if (robotPositionX == -1 || robotPositionY == -1){
         		robotPositionX = x;
         		robotPositionY = y;
@@ -102,14 +100,8 @@ public class UIMap extends java.awt.Panel implements Serializable
         		robotPositionY = y;
         		gridCell[x][y].setRobot(true);
         	}
-        	Thread.sleep(1500);
-        	this.repaint();
-        	//for(int j = 0; j < 10000000; j++){}
-    	}
-
-    	
-    	
     }
+    
     public void setStart(int x,int y)
 	{
 		gridCell[x][y].setStart(true);

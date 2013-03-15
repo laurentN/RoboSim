@@ -8,6 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -15,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.Timer;
 
 import model.Position;
 import model.map.Map;
@@ -43,6 +45,11 @@ public class SimulatorInterface implements ActionListener {
 	private Map map;
 	private String path;
 	private ArrayList<Node> listNode;
+	private Timer timerPathFinding = new Timer(500,this);
+	
+	private int numberNode = 0;
+	private ArrayList<Node> pathCalculate = new ArrayList<Node>();
+	private ArrayList<Position> p = new ArrayList<Position>();
 	/**
 	 * Launch the application.
 	 */
@@ -217,7 +224,7 @@ public class SimulatorInterface implements ActionListener {
 			uiMap.setStart(20,20);
 			uiMap.setFinish(10,10);
 					
-
+			createSimulation();
 			this.uiMap.setBounds(204, 11, 465, 475);
 			frame.getContentPane().add(this.uiMap);
 
@@ -236,28 +243,40 @@ public class SimulatorInterface implements ActionListener {
 	public JFrame getFrame(){
 		return this.frame;
 	}
+	
+	public void createSimulation(){
+		Simulation sim = new Simulation(map, null, new Position(20,20), new Position(10,10));
+		
+		PathFinding pf = new PathFinding(new Position(20,20), new Position(10,10), map, sim);
+		
+		this.pathCalculate = pf.mainSearchBis();
+		Collections.reverse(this.pathCalculate);
+		for(Node n : pathCalculate)
+		{
+			p.add(n.getPosition());
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		try {
-			Simulation sim = new Simulation(map, null, new Position(20,20), new Position(10,10));
-			
-			PathFinding pf = new PathFinding(new Position(20,20), new Position(10,10), map, sim);
-			
-			ArrayList<Node> pathCalculate = pf.mainSearchBis();
-			ArrayList<Position> p = new ArrayList<Position>();
-			
-			for(Node n : pathCalculate)
-			{
-				p.add(n.getPosition());
+		if(e.getSource().getClass().equals(JButton.class)){
+			this.timerPathFinding.start();
+		}
+		if(e.getSource().equals(this.timerPathFinding)){
+			if(this.numberNode<this.pathCalculate.size()){
+				try {				
+					this.uiMap.setRobot(this.pathCalculate.get(this.numberNode),this.frame);
+					this.frame.validate();
+					//this.frame.getContentPane().repaint();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				this.numberNode++;
 			}
-			
-			this.uiMap.setRobot(pathCalculate);
-			this.frame.repaint();
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			else{
+				this.timerPathFinding.stop();
+			}
 		}
 		
 	}

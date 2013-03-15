@@ -26,8 +26,9 @@ public class Robot extends ARobot{
 	}
 
 	/**
-	 * 
-	 * @param sensorList
+	 * Function which save the robot in a xml file
+	 * @param sensorList list of the sensor
+	 * @param fileName xml file where we save the robot
 	 */
 	public void saveRobot(String fileName,ArrayList<Element> sensorList){
 		
@@ -81,7 +82,11 @@ public class Robot extends ARobot{
 		   }
 	}
 	
-	
+	/**
+	 * Function who load a robot from a xml file
+	 * @param fileName file who containts the robot
+	 * @return the created robot
+	 */
 	public Robot loadRobot(String fileName){
 		 SAXBuilder sxb = new SAXBuilder();
 		 try

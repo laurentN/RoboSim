@@ -223,7 +223,7 @@ public class SimulatorInterface implements ActionListener {
 			this.uiMap = new UIMap(465,475,this.map);
 			uiMap.setStart(20,20);
 			uiMap.setFinish(10,10);
-					
+		
 			createSimulation();
 			this.uiMap.setBounds(204, 11, 465, 475);
 			frame.getContentPane().add(this.uiMap);
@@ -240,10 +240,9 @@ public class SimulatorInterface implements ActionListener {
 		//frame.getContentPane().add(uimap);*/
 	}
 	
-	public JFrame getFrame(){
-		return this.frame;
-	}
-	
+	/**
+	 * Function who created a simulation. It finds the path from a strat point to a finished point
+	 */
 	public void createSimulation(){
 		Simulation sim = new Simulation(map, null, new Position(20,20), new Position(10,10));
 		
@@ -281,6 +280,9 @@ public class SimulatorInterface implements ActionListener {
 		
 	}
 	
+	public JFrame getFrame(){
+		return this.frame;
+	}
 	
 }
 

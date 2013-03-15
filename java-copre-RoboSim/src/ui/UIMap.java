@@ -15,7 +15,7 @@ import model.map.Map;
 import model.pathfinding.Node;
 
 @SuppressWarnings("serial")
-public class UIMap extends java.awt.Frame implements Serializable
+public class UIMap extends java.awt.Panel implements Serializable
 {
     int w = 40;
     int h = 40;
@@ -45,12 +45,13 @@ public class UIMap extends java.awt.Frame implements Serializable
         }
         
         this.setVisible(true);
-        this.setResizable(false);
+       //this.setResizable(false);
+        /*
         this.addWindowListener(new WindowAdapter() {
         	public void windowClosing(WindowEvent we){
         		System.exit(0);
         	}
-		});
+		});*/
     }
     
     public void paint(Graphics g){

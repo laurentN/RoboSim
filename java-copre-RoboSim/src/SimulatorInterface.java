@@ -20,6 +20,8 @@ import javax.swing.JTable;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
+import model.map.Map;
+import model.map.MapException;
 import model.robot.ConstantesXML;
 import model.robot.ContactSensor;
 import model.robot.LightSensor;
@@ -29,6 +31,7 @@ import model.robot.TemperatureSensor;
 import org.jdom2.Element;
 
 import ui.UICreateRobot;
+import ui.UIMap;
 import utils.FileUtils;
 import utils.StringUtils;
 
@@ -196,10 +199,26 @@ public class SimulatorInterface implements ActionListener {
 		btnNewButton_2.setBounds(675, 41, 109, 23);
 		frame.getContentPane().add(btnNewButton_2);
 		
+		
+		/*****/
+		/**/
+		try
+		{
+			Map map1 = new Map();
+			
+			map1.load("src\\data\\mapNonVide.map");
+			UIMap uimap = new UIMap(465,475,map1);
+			uimap.setBounds(204, 11, 465, 475);
+			frame.getContentPane().add(uimap);
+		}
+		catch (MapException e){}
+		
+		/*
 		Canvas canvas = new Canvas();
 		canvas.setBackground(Color.GRAY);
 		canvas.setBounds(204, 11, 465, 475);
 		frame.getContentPane().add(canvas);
+		//frame.getContentPane().add(uimap);*/
 	}
 	
 	public JFrame getFrame(){

@@ -19,7 +19,7 @@ public class TestSimulation
 	{
 		Map m = new Map();
 		try {
-			m.load("C:/Users/Guillaume/workspace/RoboSim/java-copre-RoboSim/src/data/mapNonVide.map");
+			m.load("src\\data\\mapNonVide.map");
 		} catch (MapException e) {
 			e.printStackTrace();
 		}

@@ -41,9 +41,9 @@ public class UIMap extends JPanel implements Serializable
 		
         for(int i=0;i<w;i++){
             for(int j=0;j<h;j++){
-               gridCell[j][i] = new GridCell(grid[i][j],this);
-               gridCell[j][i].setPosition(new Point(i,j));
-               add(gridCell[j][i]);
+               gridCell[i][j] = new GridCell(grid[i][j],this);
+               gridCell[i][j].setPosition(new Point(i,j));
+               add(gridCell[i][j]);
             }
         }
         this.setVisible(true);

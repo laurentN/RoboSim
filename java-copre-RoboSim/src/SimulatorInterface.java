@@ -47,6 +47,9 @@ public class SimulatorInterface implements ActionListener {
 	private ArrayList<Node> listNode;
 	private Timer timerPathFinding = new Timer(500,this);
 	
+	private JButton boutonDeparture = new JButton("Departure");
+	private JButton boutonEnd = new JButton("Arrival");
+	
 	private int numberNode = 0;
 	private ArrayList<Node> pathCalculate = new ArrayList<Node>();
 	private ArrayList<Position> p = new ArrayList<Position>();
@@ -212,6 +215,14 @@ public class SimulatorInterface implements ActionListener {
 		btnNewButton_2.setBounds(675, 41, 109, 23);
 		frame.getContentPane().add(btnNewButton_2);
 		
+		this.boutonDeparture.setBounds(675,70,109,23);
+		this.boutonDeparture.addActionListener(this);
+		frame.getContentPane().add(this.boutonDeparture);
+		
+		this.boutonEnd.setBounds(675,100,109,23);
+		this.boutonEnd.addActionListener(this);
+		frame.getContentPane().add(this.boutonEnd);
+		
 		try
 		{
 			this.map = new Map();
@@ -221,7 +232,7 @@ public class SimulatorInterface implements ActionListener {
 			uiMap.setStart(20,20);
 			uiMap.setFinish(10,10);
 		
-			createSimulation();
+			
 			this.uiMap.setBounds(204, 11, 465, 475);
 			frame.getContentPane().add(this.uiMap);
 
@@ -241,9 +252,22 @@ public class SimulatorInterface implements ActionListener {
 	 * Function who created a simulation. It finds the path from a strat point to a finished point
 	 */
 	public void createSimulation(){
-		Simulation sim = new Simulation(map, null, new Position(20,20), new Position(10,10));
+		Position posDeparture =new Position(0, 0);
+		Position posArrive = new Position(0, 0);
+		for(int i=0;i<this.uiMap.getH();i++){
+			for(int j=0;j<this.uiMap.getW();j++){
+				if(this.uiMap.getGridCell()[i][j].isStart()){
+					posDeparture = new Position(i, j);
+				}
+				else if(this.uiMap.getGridCell()[i][j].isFinish()){
+					posArrive = new Position(i, j);
+				}
+			}
+		}
+		//System.out.println(posDeparture.getX()+","+posDeparture.getY()+";"+posArrive.getX()+","+posArrive.getY());
+		Simulation sim = new Simulation(map, null, posDeparture,posArrive);
 		
-		PathFinding pf = new PathFinding(new Position(20,20), new Position(10,10), map, sim);
+		PathFinding pf = new PathFinding(posDeparture,posArrive, map, sim);
 		
 		this.pathCalculate = pf.mainSearchBis();
 		Collections.reverse(this.pathCalculate);
@@ -255,7 +279,20 @@ public class SimulatorInterface implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().getClass().equals(JButton.class)){
+		if(e.getSource().equals(this.boutonDeparture)){
+			this.uiMap.setStart(true);
+			this.uiMap.setStop(false);
+		}
+		else if(e.getSource().equals(boutonEnd)){
+			this.uiMap.setStart(false);
+			this.uiMap.setStop(true);
+			this.frame.validate();
+		}
+		else if(e.getSource().getClass().equals(JButton.class)){
+			this.uiMap.setStart(false);
+			this.uiMap.setStop(false);
+			createSimulation();
+			this.numberNode = 0;
 			this.timerPathFinding.start();
 		}
 		if(e.getSource().equals(this.timerPathFinding)){
@@ -273,7 +310,7 @@ public class SimulatorInterface implements ActionListener {
 				this.timerPathFinding.stop();
 			}
 		}
-		
+		this.frame.validate();
 	}
 	
 	public JFrame getFrame(){

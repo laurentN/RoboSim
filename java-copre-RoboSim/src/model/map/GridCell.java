@@ -6,19 +6,22 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.Serializable;
 import java.util.Vector;
 
-import javax.swing.JPanel;
+import javax.swing.JComponent;
+
+import ui.UIMap;
 
 @SuppressWarnings("serial")
-public class GridCell extends JPanel implements Serializable
+public class GridCell extends JComponent implements Serializable,MouseListener
 {
     public static final int SET_BLOCKS=0,SET_START=1,SET_FINISH=2;
     private static int editMode = SET_BLOCKS;
     private static GridCell startCell;
     private static GridCell finishCell;
-    
+    private UIMap map ;
     private boolean isStart = false;
     private boolean isFinish = false;
     private boolean isWall = false;
@@ -33,9 +36,11 @@ public class GridCell extends JPanel implements Serializable
 
     private Point position;
     
-    public GridCell(){
+    public GridCell(UIMap map){
+    	this.addMouseListener(this);
         this.cells.addElement(this);
         this.tidy=true;
+        this.map= map;
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);
     }
     
@@ -43,8 +48,8 @@ public class GridCell extends JPanel implements Serializable
      * Constructer with option for making this cell impasable
      * @param block Boolean, set to true if this cell can not be passed through
      */
-    public GridCell(boolean block){
-        this();
+    public GridCell(boolean block,UIMap map){
+        this(map);
         if(block){
         	this.isWall = true;
         	this.setBackground(Color.black);
@@ -101,7 +106,8 @@ public class GridCell extends JPanel implements Serializable
         if(flag){
             GridCell temp = this;
             if(startCell !=null){
-            	temp = startCell;temp.setStart(false);
+            	temp = startCell;
+            	temp.setStart(false);
             }
             startCell=this;
             isStart=true;
@@ -126,13 +132,15 @@ public class GridCell extends JPanel implements Serializable
         if(flag){
             GridCell temp = this;
             if(finishCell!=null){
-            	temp=finishCell;temp.setFinish(false);
+            	temp=finishCell;
+            	temp.setFinish(false);
             }
             finishCell=this;
             isFinish=true;
+            temp.repaint();
         }
         else{
-                isFinish=false;
+             isFinish=false;
         }
     } 
  
@@ -141,7 +149,11 @@ public class GridCell extends JPanel implements Serializable
         return used;
     }
     
-    private void resetCell(){
+    public static void setFinishCell(GridCell finishCell) {
+		GridCell.finishCell = finishCell;
+	}
+
+	private void resetCell(){
         used = false;
     }
     
@@ -150,7 +162,6 @@ public class GridCell extends JPanel implements Serializable
             ((GridCell)cells.elementAt(i)).resetCell();
         }
     }
-
     
     public void paint(Graphics g){
         Dimension size = getSize();
@@ -177,5 +188,44 @@ public class GridCell extends JPanel implements Serializable
     	this.updateUI();
     	repaint();
     }
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		if(this.map.isStart()){
+			this.map.deleteStart();
+			this.setStart(true);
+			this.map.setStart(false);
+		}
+		else if(this.map.isStop()){
+			this.map.deleteStop();
+			this.setFinish(true);
+			this.map.setStop(false);
+			this.repaint();
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
  
 }

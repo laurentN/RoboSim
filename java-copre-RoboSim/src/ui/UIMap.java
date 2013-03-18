@@ -18,35 +18,34 @@ import model.map.Map;
 import model.pathfinding.Node;
 
 @SuppressWarnings("serial")
-public class UIMap extends JPanel implements Serializable,MouseListener
+public class UIMap extends JPanel implements Serializable
 {
     int w = 40;
     int h = 40;
     transient Image buffer; 
     int robotPositionX=-1;
     int robotPositionY=-1;
+    boolean start = false;
+    boolean stop = false;
     
     GridCell gridCell[][] = new GridCell[w][h];
 	public UIMap(int FrameSizeX, int FrameSizeY, Map map)
 	{
 		super();
-		this.addMouseListener(this);
 
 		boolean grid[][] = map.getGrid();
 		//{{INIT_CONTROLS
 		setLayout(new GridLayout(w,h));
 		setSize(getInsets().left + getInsets().right + FrameSizeX ,getInsets().top + getInsets().bottom + FrameSizeY) ;
-		//}}
-		
+		//}}		
 		
         for(int i=0;i<w;i++){
             for(int j=0;j<h;j++){
-               gridCell[j][i] = new GridCell(grid[i][j]);
+               gridCell[j][i] = new GridCell(grid[i][j],this);
                gridCell[j][i].setPosition(new Point(i,j));
                add(gridCell[j][i]);
             }
         }
-        
         this.setVisible(true);
     }
     
@@ -118,34 +117,53 @@ public class UIMap extends JPanel implements Serializable,MouseListener
 	//{{DECLARE_CONTROLS
 	//}}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println(e.getX()+","+e.getY());
+    public void deleteStart(){
+    	for(int i = 0;i<this.h;i++){
+    		for(int j = 0;j<this.w;j++){
+    			if(this.gridCell[i][j].isStart()){
+    				this.gridCell[i][j].setStart(false);
+    			}
+    		}
+    	}
+    }
+    
+    public void deleteStop(){
+    	for(int i = 0;i<this.h;i++){
+    		for(int j = 0;j<this.w;j++){
+    			if(this.gridCell[i][j].isFinish()){
+    				this.gridCell[i][j].setFinish(false);
+    			}
+    		}
+    	}
+    }
+   
+	public boolean isStart() {
+		return start;
 	}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void setStart(boolean start) {
+		this.start = start;
 	}
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public boolean isStop() {
+		return stop;
 	}
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void setStop(boolean stop) {
+		this.stop = stop;
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public GridCell[][] getGridCell() {
+		return gridCell;
 	}
 
+	public int getW() {
+		return w;
+	}
+
+	public int getH() {
+		return h;
+	}
+
+	
 }
